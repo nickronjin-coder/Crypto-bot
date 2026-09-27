@@ -1,0 +1,9 @@
+{
+  "name": "Crypto Bot",
+  "short_name": "Crypto Bot",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090d12",
+  "theme_color": "#090d12",
+  "description": "Safety-first crypto trading dashboard"
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#090d12"><link rel="manifest" href="manifest.json">
+<title>Crypto Bot</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090d12;color:#eef2f7;font-family:-apple-system,BlinkMacSystemFont,system-ui;padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom)}
+main{max-width:700px;margin:auto;padding:18px 0}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+h1{margin:0;font-size:30px}.muted{color:#8995a4}.badge{padding:8px 12px;border-radius:20px;background:#211b0d;color:#fbbf24;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:#131922;border:1px solid #273242;border-radius:18px;padding:18px;margin-bottom:12px}
+.big{font-size:26px;font-weight:700;margin-top:5px}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button,select{width:100%;padding:15px;border:0;border-radius:13px;background:#263242;color:white;font-weight:700;font-size:16px}
+.start{background:#15803d}.stop{background:#991b1b}.kill{background:#450a0a;color:#fca5a5;grid-column:1/3}
+.notice{background:#211b0d;border:1px solid #6b4f16;padding:14px;border-radius:14px;line-height:1.45;margin-bottom:12px}
+pre{white-space:pre-wrap;background:#0b1017;border-radius:12px;padding:12px;min-height:70px}
+</style></head>
+<body><main>
+<div class="top"><div><h1>Crypto Bot</h1><div class="muted">Bybit • Safety-first</div></div><div id="status" class="badge">STOPPED</div></div>
+<div class="notice"><b>SAFE MODE</b><br>Demo/Testnet only. Real-money trading is disabled in this iPhone app.</div>
+<div class="grid">
+<div class="card"><div class="muted">Equity</div><div class="big" id="equity">€500.00</div></div>
+<div class="card"><div class="muted">P&L</div><div class="big" id="pnl">€0.00</div></div>
+<div class="card"><div class="muted">Exposure</div><div class="big" id="exposure">0%</div></div>
+<div class="card"><div class="muted">Risk</div><div class="big" id="risk">0.25%</div></div>
+</div>
+<div class="card"><h2>Bot controls</h2>
+<div class="buttons"><button class="start" onclick="start()">START</button><button class="stop" onclick="stop()">STOP</button><button class="kill" onclick="kill()">EMERGENCY KILL</button></div>
+<br><select id="riskSelect" onchange="risk()"><option value=".25">Risk 0.25%</option><option value=".15">Risk 0.15%</option><option value=".075">Risk 0.075%</option></select>
+</div>
+<div class="card"><h2>System</h2><p>Bybit: <b id="bybit">Not connected</b></p><p>Execution: <b>Simulation</b></p><pre id="log">Ready.</pre></div>
+<div class="card"><div class="muted">To use as an iPhone app</div><p>Open this page in Safari → Share → Add to Home Screen.</p></div>
+</main>
+<script>
+let running=false,killed=false;
+function render(){document.getElementById('status').textContent=killed?'KILLED':running?'RUNNING':'STOPPED'}
+function start(){if(killed){log('Kill switch is active. Restart required.');return}running=true;render();log('Bot started in safe simulation mode.')}
+function stop(){running=false;render();log('Bot stopped.')}
+function kill(){running=false;killed=true;render();log('EMERGENCY KILL ACTIVE — no new trades.')}
+function risk(){document.getElementById('risk').textContent=document.getElementById('riskSelect').value+'%'}
+function log(x){document.getElementById('log').textContent=x}
+render()
+</script></body></html>
