@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: crypto-bot-demo-backend
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
